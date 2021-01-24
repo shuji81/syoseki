@@ -4,7 +4,7 @@
 <body data-spy="scroll" data-target="#navbar">
   @include('layout.nav') 
   <div class="container">
-    <form action="./edit/update" class="form-inline" method="post">
+    <form action="./edit/update" class="form-inline" method="post" onsubmit="return confirmPopup('更新')">
     @csrf
         <div class="container-fluid">
             <div class="row align-items-center" style="margin-bottom: 30px;">

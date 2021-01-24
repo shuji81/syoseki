@@ -39,7 +39,7 @@
               <td>{{$item->num}}</td>
               <td>
                 <a href="./edit?id={{$item->id}}" class="btn btn-primary btn-md ">編集</a>
-                <form action="./delete" method="post">
+                <form action="./delete" method="post" onsubmit="return confirmPopup('削除')">
                 @csrf
                   <input type="hidden" name="id" value="{{$item->id}}">
                   <input type="submit" value="削除" class="btn btn-danger btn-md btn-dell">
