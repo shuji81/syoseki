@@ -65,28 +65,33 @@ class SyosekiController extends Controller
         $items = array();
         $today = date("Y-m-d H:i:s");
 
-        if(!empty($id))
-        {
-            $items = DB::table('syoseki')->where('id', $id)
-                    ->update([
-                        'name' => $name,
-                        'category' => $category,
-                        'num' => $num,
-                        'updated_at' => $today 
-                    ]);
-        }
-        else
-        {
-            $items = DB::table('syoseki')->insertGetId(
-                        [
+        DB::beginTransaction();
+        try {
+            if(!empty($id))
+            {
+                $items = DB::table('syoseki')->where('id', $id)
+                        ->update([
                             'name' => $name,
                             'category' => $category,
                             'num' => $num,
-                            'created_at' => $today,
-                            'updated_at' => $today
-                        ]
-                    );
-
+                            'updated_at' => $today 
+                        ]);
+            }
+            else
+            {
+                $items = DB::table('syoseki')->insertGetId(
+                            [
+                                'name' => $name,
+                                'category' => $category,
+                                'num' => $num,
+                                'created_at' => $today,
+                                'updated_at' => $today
+                            ]
+                        );
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
         }
         
         //リダイレクト
@@ -98,11 +103,17 @@ class SyosekiController extends Controller
 
         $id = $request->input("id");
         $items = array();
-
-        if(!empty($id))
-        {
-            $items = DB::table('syoseki')->where('id', $id)
-                    ->delete();
+        
+        DB::beginTransaction();
+        try {
+            if(!empty($id))
+            {
+                $items = DB::table('syoseki')->where('id', $id)
+                        ->delete();
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
         }
 
         //リダイレクト
