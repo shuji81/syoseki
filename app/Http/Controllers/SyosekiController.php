@@ -55,7 +55,7 @@ class SyosekiController extends Controller
         
     }
 
-    public function update(Request $request){
+    public function update(\App\Http\Requests\SyosekiValidateRequest $request){
 
 
         $id = $request->input("id");
