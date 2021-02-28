@@ -25,7 +25,6 @@ class SyosekiValidateRequest extends FormRequest
     {
         return [
         'name'=>'required',
-        'category'=>'required',
         'num'=>'required|numeric',
         ];
     }

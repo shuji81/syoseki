@@ -10,9 +10,9 @@
             <div class="form-group" style="margin-bottom: 30px;">
                 <label class="col-md-3">書籍名</label>
                 <div class="col-md-9">
-                    @if (isset($id))
-                        <input type="hidden" name="id" value="{{$id}}">   
-                        <input type="text" name="name" class="form-control" value="{{$name}}">
+                    @if (isset($item['id']))
+                        <input type="hidden" name="id" value="{{$item['id']}}">   
+                        <input type="text" name="name" class="form-control" value="{{$item['name']}}">
                     @else
                         <input type="text" name="name" class="form-control">
                     @endif
@@ -22,19 +22,26 @@
             <div class="form-group" style="margin-bottom: 30px;">
                 <label class="col-md-3">カテゴリー</label>
                 <div class="col-md-9" style="margin-bottom: 10px;">
-                    @if (isset($id))   
-                        <input type="text" name="category" class="form-control" value="{{$category}}">
+                    @if (isset($item['id']))
+                        <select class="form-control" name="category_id" value="{{$item['category_id']}}">
+                            @foreach($categorys as $category)
+                                <option value="{{$category->id}}">{{$category->category_name}}</option>
+                            @endforeach
+                        </select>
                     @else
-                        <input type="text" name="category" class="form-control">
+                        <select class="form-control" name="category_id">
+                            @foreach($categorys as $category)
+                                <option value="{{$category->id}}">{{$category->category_name}}</option>
+                            @endforeach
+                        </select>
                     @endif
-                    @if($errors->has('category'))<span class="text-danger">{{ $errors->first('category') }}</span> @endif
                 </div>
             </div>
             <div class="form-group" style="margin-bottom: 30px;">
                 <label class="col-md-3">冊数</label>
                 <div class="col-md-9" style="margin-bottom: 10px;">
-                    @if (isset($id))
-                        <input type="text" name="num" class="form-control" value="{{$num}}">
+                    @if (isset($item['id']))
+                        <input type="text" name="num" class="form-control" value="{{$item['num']}}">
                     @else
                         <input type="text" name="num" class="form-control">
                     @endif
