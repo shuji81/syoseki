@@ -17,8 +17,8 @@ class SyosekiTable extends Migration
             $table->increments('id');
             $table->string("syoseki_id", 64)->unique();
             $table->string("name");
-            $table->string("category");
             $table->integer("num");
+            $table->integer('category_id')->length(20);
             $table->timestamps();
         });
     }
